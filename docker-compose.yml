@@ -1,0 +1,12 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=idetity_db
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - '3307:3307'
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+      - db-data:/var/lib/mysql
