@@ -1,5 +1,7 @@
 package com.okits02.SpringJWTWithOauth2.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -15,5 +17,7 @@ import lombok.NoArgsConstructor;
 public class InvalidatedToken {
     @Id
     String id;
+
     String token;
+    Date expiresAt;
 }

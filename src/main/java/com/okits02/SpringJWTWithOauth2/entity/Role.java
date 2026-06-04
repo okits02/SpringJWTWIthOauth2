@@ -1,20 +1,31 @@
 package com.okits02.SpringJWTWithOauth2.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
+@Table
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class Role {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Role implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     String name;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "role_permissions",
+            joinColumns = @JoinColumn(name = "role_name"),
+            inverseJoinColumns = @JoinColumn(name = "permission_name"))
+    @Builder.Default
+    Set<Permission> permissions = new HashSet<>();
 }

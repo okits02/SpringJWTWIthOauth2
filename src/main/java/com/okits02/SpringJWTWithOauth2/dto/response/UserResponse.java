@@ -1,17 +1,24 @@
 package com.okits02.SpringJWTWithOauth2.dto.response;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
+import java.util.Set;
+
+import com.okits02.SpringJWTWithOauth2.dto.RoleDTO;
+
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserResponse {
-    String username;
+    String id;
+    String userName;
     String email;
+    String phone;
     String firstName;
     String lastName;
-    String bob;
+    String dob;
+    Set<RoleDTO> roles;
 }

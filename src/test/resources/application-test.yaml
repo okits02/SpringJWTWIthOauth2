@@ -1,0 +1,17 @@
+spring:
+  docker:
+    compose:
+      enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  data:
+    redis:
+      timeout: 60000
+jwt:
+  signerKey: "8XhJGP0154kAnQuNfNTLozGf9ZegnFfISt88v4uq3uSIX6N4gyj5AtRhy8XxLK0Q"
+  access-token-expiration: 3600000
+  refresh-token-expiration: 604800000

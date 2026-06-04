@@ -1,18 +1,50 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
   servlet:
-    context-path: /indentity
+    context-path: ${SERVER_CONTEXT_PATH:/api/v1/identity}
+
 spring:
+  application:
+    name: identity-service
+    version: 1.0.0s
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:mysql://localhost:3307/idetity_db?allowPublicKeyRetrieval=true&useSSL=false
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/identity_db?allowPublicKeyRetrieval=true&useSSL=false}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:123456}
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+    show-sql: ${SPRING_JPA_SHOW_SQL:true}
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      password: ${SPRING_DATA_REDIS_PASSWORD:}
+      timeout: ${SPRING_DATA_REDIS_TIMEOUT:60000}
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          client-id: ${GOOGLE_CLIENT_ID:Your-client-id}
+          client-secret: ${GOOGLE_CLIENT_SECRET:Your-client-secret}
 
-jwt:
-  signerKey: "Ki1rxKSyC5xCXpaJOy0yq948cd7ot73kvf66o3u/P+o="
+app:
+  jwt:
+    signerKey: ${JWT_SIGNER_KEY:8XhJGP0154kAnQuNfNTLozGf9ZegnFfISt88v4uq3uSIX6N4gyj5AtRhy8XxLK0Q}
+    access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:3600000}
+    refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
+  oauth2:
+    redirect-uri: ${OAUTH2_REDIRECT_URI:http://localhost:3000/authenticate}
 
+
+springdoc:
+  api-docs:
+    path: ${SPRINGDOC_API_DOCS_PATH:/v3/api-docs}
+  swagger-ui:
+    path: ${SPRINGDOC_SWAGGER_UI_PATH:/swagger-ui.html}
+    disable-swagger-default-url: ${SPRINGDOC_DISABLE_SWAGGER_DEFAULT_URL:true}
+    operations-sorter: ${SPRINGDOC_OPERATIONS_SORTER:alpha}
+    tags-sorter: ${SPRINGDOC_TAGS_SORTER:alpha}
