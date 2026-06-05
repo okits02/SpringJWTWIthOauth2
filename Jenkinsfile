@@ -8,6 +8,9 @@ pipeline{
         APP_EC2_USER = "ubuntu"
         APP_EC2_HOST = "54.252.192.111"
         APP_DIR = "/home/ubuntu/identity-service"
+
+        JAVA_HOME = '/usr/lib/jvm/java-21-openjdk-amd64'
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
     stages{
