@@ -25,6 +25,20 @@ services:
     networks:
       redis:
 
+  identity-service:
+    image: okits02/identity-service:latest
+    container_name: identity-service
+    env_file:
+      - .env
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - identity-network
+    restart: unless-stopped
+
 volumes:
   redis_data:
   db-data:
